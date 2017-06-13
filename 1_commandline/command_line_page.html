@@ -1,0 +1,299 @@
+<!DOCTYPE html> <html lang="en-US"><head>
+	    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="http://www.medbioinfo.se/xmlrpc.php">
+    
+<title>Assignment 1: Working on the command line &#8211; MedBioInfo</title>
+<link rel='dns-prefetch' href='//platform.twitter.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="MedBioInfo &raquo; Feed" href="http://www.medbioinfo.se/?feed=rss2" />
+<link rel="alternate" type="application/rss+xml" title="MedBioInfo &raquo; Comments Feed" href="http://www.medbioinfo.se/?feed=comments-rss2" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.medbioinfo.se\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.5"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='cptch_stylesheet-css'  href='http://www.medbioinfo.se/wp-content/plugins/captcha/css/front_end_style.css?ver=4.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='http://www.medbioinfo.se/wp-includes/css/dashicons.min.css?ver=4.7.5' type='text/css' media='all' />
+<link rel='stylesheet' id='cptch_desktop_style-css'  href='http://www.medbioinfo.se/wp-content/plugins/captcha/css/desktop_style.css?ver=4.3.0' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-css'  href='http://www.medbioinfo.se/wp-content/themes/education-hub/third-party/font-awesome/css/font-awesome.min.css?ver=4.7.0' type='text/css' media='all' />
+<link rel='stylesheet' id='education-hub-google-fonts-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A600%2C400%2C400italic%2C300%2C100%2C700%7CMerriweather+Sans%3A400%2C700&#038;ver=4.7.5' type='text/css' media='all' />
+<link rel='stylesheet' id='education-hub-style-css'  href='http://www.medbioinfo.se/wp-content/themes/education-hub/style.css?ver=1.9.4' type='text/css' media='all' />
+<style id='education-hub-style-inline-css' type='text/css'>
+#masthead{ background-image: url("http://www.medbioinfo.se/wp-content/uploads/2016/12/cropped-Screen-Shot-2016-12-21-at-15.38.44-.png"); background-repeat: no-repeat; background-position: center center; }
+</style>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='http://www.medbioinfo.se/?rest_route=/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.medbioinfo.se/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.medbioinfo.se/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.7.5" />
+<link rel="canonical" href="http://www.medbioinfo.se/?page_id=229" />
+<link rel='shortlink' href='http://www.medbioinfo.se/?p=229' />
+<link rel="alternate" type="application/json+oembed" href="http://www.medbioinfo.se/?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=http%3A%2F%2Fwww.medbioinfo.se%2F%3Fpage_id%3D229" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.medbioinfo.se/?rest_route=%2Foembed%2F1.0%2Fembed&#038;url=http%3A%2F%2Fwww.medbioinfo.se%2F%3Fpage_id%3D229&#038;format=xml" />
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+		<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #eef4e3; }
+</style>
+<meta name="twitter:partner" content="tfwp"><link rel="icon" href="http://www.medbioinfo.se/wp-content/uploads/2017/01/vetenskapsradet-logotyp-150x148.png" sizes="32x32" />
+<link rel="icon" href="http://www.medbioinfo.se/wp-content/uploads/2017/01/vetenskapsradet-logotyp.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.medbioinfo.se/wp-content/uploads/2017/01/vetenskapsradet-logotyp.png" />
+<meta name="msapplication-TileImage" content="http://www.medbioinfo.se/wp-content/uploads/2017/01/vetenskapsradet-logotyp.png" />
+
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Assignment 1: Working on the command line"><meta name="twitter:creator" content="@arvestad">
+</head>
+
+<body class="page-template-default page page-id-229 page-child parent-pageid-227 custom-background wp-custom-logo group-blog site-layout-fluid global-layout-right-sidebar">
+
+	    <div id="page" class="container hfeed site">
+    <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    	<div id="tophead">
+		<div class="container">
+			<div id="quick-contact">
+									<ul>
+																			<li class="quick-email"><a href="mailto:arne@bioinfo.se">arne@bioinfo.se</a></li>
+											</ul>
+													<div class="top-news">
+						<p>
+																			<span class="top-news-title">Notice:</span>
+																									<a href="#">The Swedish National Graduate School in Medical Bioinformatics							</a>
+												</p>
+					</div>
+							</div>
+
+							<div class="quick-links">
+					<a href="#" class="links-btn">Quick Links</a>
+					<ul id="menu-main" class="menu"><li id="menu-item-145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-145"><a href="http://www.medbioinfo.se/?page_id=123">Announcement</a></li>
+<li id="menu-item-65" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-65"><a href="http://www.medbioinfo.se/">About</a></li>
+<li id="menu-item-62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-62"><a href="http://www.medbioinfo.se/?page_id=33">Application</a></li>
+<li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-has-children menu-item-63"><a href="http://www.medbioinfo.se/?page_id=31">Courses</a></li>
+<li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-138"><a href="http://www.medbioinfo.se/?page_id=136">External Partners</a></li>
+</ul>				</div>
+			
+			
+		</div> <!-- .container -->
+	</div><!--  #tophead -->
+
+	<header id="masthead" class="site-header" role="banner"><div class="container">			    <div class="site-branding">
+
+		    <a href="http://www.medbioinfo.se/" class="custom-logo-link" rel="home" itemprop="url"><img width="156" height="148" src="http://www.medbioinfo.se/wp-content/uploads/2017/01/vetenskapsradet-logotyp.png" class="custom-logo" alt="" itemprop="logo" /></a>
+									
+	    </div><!-- .site-branding -->
+
+	    	    		    <div class="search-section">
+		    	<form role="search" method="get" class="search-form" action="http://www.medbioinfo.se/">
+	      <label>
+	        <span class="screen-reader-text">Search for:</span>
+	        <input type="search" class="search-field" placeholder="Search..." value="" name="s" title="Search for:" />
+	      </label>
+	      <input type="submit" class="search-submit" value="Search" />
+	    </form>		    </div>
+	    
+        </div><!-- .container --></header><!-- #masthead -->    <div id="main-nav" class="clear-fix">
+        <div class="container">
+        <nav id="site-navigation" class="main-navigation" role="navigation">
+          <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><i class="fa fa-bars"></i>
+			Menu</button>
+            <div class="wrap-menu-content">
+				<div class="menu-main-container"><ul id="primary-menu" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-145"><a href="http://www.medbioinfo.se/?page_id=123">Announcement</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-65"><a href="http://www.medbioinfo.se/">About</a>
+<ul class="sub-menu">
+	<li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-66"><a href="http://www.medbioinfo.se/?page_id=57">Students</a></li>
+	<li id="menu-item-67" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-67"><a href="http://www.medbioinfo.se/?page_id=53">Benefits</a></li>
+	<li id="menu-item-69" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-69"><a href="http://www.medbioinfo.se/?page_id=35">University representatives</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-62"><a href="http://www.medbioinfo.se/?page_id=33">Application</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-has-children menu-item-63"><a href="http://www.medbioinfo.se/?page_id=31">Courses</a>
+<ul class="sub-menu">
+	<li id="menu-item-64" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-64"><a href="http://www.medbioinfo.se/?page_id=37">Teaching Material</a></li>
+	<li id="menu-item-221" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-has-children menu-item-221"><a href="http://www.medbioinfo.se/?page_id=203">Applied Bioinformatics</a>
+	<ul class="sub-menu">
+		<li id="menu-item-223" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-223"><a href="http://www.medbioinfo.se/?page_id=206">Literature</a></li>
+		<li id="menu-item-222" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-222"><a href="http://www.medbioinfo.se/?page_id=208">Resources</a></li>
+		<li id="menu-item-249" class="menu-item menu-item-type-post_type menu-item-object-page current-page-ancestor menu-item-249"><a href="http://www.medbioinfo.se/?page_id=227">Assignments</a></li>
+	</ul>
+</li>
+	<li id="menu-item-111" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-111"><a href="http://www.medbioinfo.se/?page_id=108">Collaborations</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-138"><a href="http://www.medbioinfo.se/?page_id=136">External Partners</a></li>
+</ul></div>            </div><!-- .menu-content -->
+        </nav><!-- #site-navigation -->
+       </div> <!-- .container -->
+    </div> <!-- #main-nav -->
+    
+	<div id="content" class="site-content"><div class="container"><div class="inner-wrapper">    
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+			
+				
+<article id="post-229" class="post-229 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Assignment 1: Working on the command line</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+    		<h2>Introduction to Unix</h2>
+<p>Solve these assignments in a terminal window, and perhaps using a browser.</p>
+<ol>
+<li>Figure out what the following Unix commands do. You should feel familiar will all of these:
+<ul>
+<li><code>cd</code></li>
+<li><code>ls</code></li>
+<li><code>mkdir</code></li>
+<li><code>rm</code></li>
+<li><code>cat</code></li>
+<li><code>less</code></li>
+<li><code>head</code></li>
+<li><code>tail</code></li>
+<li><code>wc</code></li>
+<li><code>grep</code></li>
+<li><code>sort</code></li>
+<li><code>uniq</code></li>
+<li><code>cut</code></li>
+</ul>
+</li>
+<li>Create a directory structure for this course in your home directory using <code>mkdir</code> and <code>cd</code>. There should be a directory for the course, and within it a directory for each assignment.</li>
+<li>Use the <code>man</code> command to figure out&#8230;
+<ol>
+<li>&#8230; what the command &#8220;ls -l&#8221; does.</li>
+<li>&#8230; how you delete a directory and its contents with <code>rm</code>.</li>
+</ol>
+</li>
+<li>Download <a href="https://stockholmuniversity.box.com/s/la3wf8vwgpvhfpthjjr963na0ddw6ao8">our GPCR data file</a> (with data concerning G-protein coupled receptors from a number of species) into your course directory and apply the commands from question 1 to answer the following questions. Note: this is about practicing working on the command line!
+<ol>
+<li>How many columns are there (if you count by eye)?</li>
+<li>How many lines is there in the file?</li>
+<li>Use <code>grep</code> and <code>wc</code> to find out how many <em>human</em> GPCRs there are listed. Use techniques from Chapter 5! Do you search for &#8220;human&#8221; or &#8220;Homo sapiens&#8221;?</li>
+<li>How long is the shortest sequence listed in the same file? Use <code>cut</code> and <code>sort</code>!</li>
+<li>How many species are named in gpcr.tab?</li>
+</ol>
+</li>
+<li>Download and extract <a href="https://stockholmuniversity.box.com/s/bz265ww2drepiesljgjd8k4u14e3p7pt">a directory with Fasta files</a>, that contains 88 Fasta files. Write a shell script that applies a multi alignment software like <a href="http://www.drive5.com/muscle/">Muscle</a> or <a href="http://mafft.cbrc.jp/alignment/software/">MAFFT</a> (install as necessary!) on each gene family in the directory.</li>
+</ol>
+<h2>Due date</h2>
+<p>Please have code and answers ready before the Stockholm visit. We will discuss and evaluate your solutions in groups.</p>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+			</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+				
+			
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+<div id="sidebar-primary" class="widget-area" role="complementary">
+	    <aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://www.medbioinfo.se/">
+	      <label>
+	        <span class="screen-reader-text">Search for:</span>
+	        <input type="search" class="search-field" placeholder="Search..." value="" name="s" title="Search for:" />
+	      </label>
+	      <input type="submit" class="search-submit" value="Search" />
+	    </form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+					<li>
+				<a href="http://www.medbioinfo.se/?p=195">Mailing list</a>
+						</li>
+					<li>
+				<a href="http://www.medbioinfo.se/?p=193">Hotels close to SciLifeLab with Avropa</a>
+						</li>
+					<li>
+				<a href="http://www.medbioinfo.se/?p=188">First year medbioinfo students.</a>
+						</li>
+					<li>
+				<a href="http://www.medbioinfo.se/?p=183">First annual meeting Aug 21-22</a>
+						</li>
+					<li>
+				<a href="http://www.medbioinfo.se/?p=181">First Course</a>
+						</li>
+				</ul>
+		</aside>		<aside id="recent-comments-2" class="widget widget_recent_comments"><h2 class="widget-title">Recent Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Hissa</span> on <a href="http://www.medbioinfo.se/?p=141#comment-13">Announcement</a></li><li class="recentcomments"><span class="comment-author-link">Arne Elofsson</span> on <a href="http://www.medbioinfo.se/?p=141#comment-12">Announcement</a></li><li class="recentcomments"><span class="comment-author-link">Hissa</span> on <a href="http://www.medbioinfo.se/?p=141#comment-11">Announcement</a></li><li class="recentcomments"><span class="comment-author-link">Arne Elofsson</span> on <a href="http://www.medbioinfo.se/?p=141#comment-10">Announcement</a></li><li class="recentcomments"><span class="comment-author-link">Hissa</span> on <a href="http://www.medbioinfo.se/?p=141#comment-9">Announcement</a></li></ul></aside><aside id="calendar-3" class="widget widget_calendar"><h2 class="widget-title">Calendar</h2><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar">
+	<caption>May 2017</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="Monday">M</th>
+		<th scope="col" title="Tuesday">T</th>
+		<th scope="col" title="Wednesday">W</th>
+		<th scope="col" title="Thursday">T</th>
+		<th scope="col" title="Friday">F</th>
+		<th scope="col" title="Saturday">S</th>
+		<th scope="col" title="Sunday">S</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="http://www.medbioinfo.se/?m=201704">&laquo; Apr</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next" class="pad">&nbsp;</td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr><td>1</td><td>2</td><td>3</td><td><a href="http://www.medbioinfo.se/?m=20170504" aria-label="Posts published on May 4, 2017">4</a></td><td>5</td><td>6</td><td>7</td>
+	</tr>
+	<tr>
+		<td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td>
+	</tr>
+	<tr>
+		<td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td>
+	</tr>
+	<tr>
+		<td>22</td><td>23</td><td>24</td><td id="today">25</td><td>26</td><td>27</td><td>28</td>
+	</tr>
+	<tr>
+		<td>29</td><td>30</td><td>31</td>
+		<td class="pad" colspan="4">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></aside><aside id="twitter-follow-3" class="widget widget_twitter-follow"><div class="twitter-follow"><a href="https://twitter.com/intent/follow?screen_name=arneelof" class="twitter-follow-button">Follow @arneelof</a></div></aside>	</div><!-- #sidebar-primary -->
+
+
+</div><!-- .inner-wrapper --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="container">    
+	    	    	      <div class="copyright">
+	        Copyright. All rights reserved.	      </div><!-- .copyright -->
+	    	    <div class="site-info">
+	      <a href="https://wordpress.org/">Proudly powered by WordPress</a>
+	      <span class="sep"> | </span>
+			Education Hub by <a href="http://wenthemes.com/" rel="designer" target="_blank">WEN Themes</a>	    </div><!-- .site-info -->
+	    	</div><!-- .container --></footer><!-- #colophon -->
+</div><!-- #page --><a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-chevron-up"></i></a>
+<link rel='stylesheet' id='hugeit_custom_style-css'  href='http://www.medbioinfo.se?hugeit_custom_css=1&#038;ver=4.7.5' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-content/themes/education-hub/js/skip-link-focus-fix.min.js?ver=20130115'></script>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-content/themes/education-hub/third-party/cycle2/js/jquery.cycle2.min.js?ver=2.1.6'></script>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-content/themes/education-hub/js/custom.min.js?ver=1.0'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var EducationHubScreenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-content/themes/education-hub/js/navigation.min.js?ver=20120206'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+window.twttr=(function(w){t=w.twttr||{};t._e=[];t.ready=function(f){t._e.push(f);};return t;}(window));
+/* ]]> */
+</script>
+<script type="text/javascript" id="twitter-wjs" async defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script type='text/javascript' src='http://www.medbioinfo.se/wp-includes/js/wp-embed.min.js?ver=4.7.5'></script>
+</body>
+</html>
